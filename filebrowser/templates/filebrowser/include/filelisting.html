@@ -7,6 +7,7 @@
         {% version fileobject settings_var.ADMIN_THUMBNAIL as thumbnail_version %}
     {% endif %}
 
+
     <tr class="grp-row grp-row-even{% if fileobject.is_folder %} fb_folder{% endif %}">
 
         <!-- FILESELECT FOR FILEBROWSEFIELD -->
@@ -121,11 +122,16 @@
         <!-- DATE -->
         <td><span class="small">{{ fileobject.datetime|date:"N j, Y" }}</span></td>
 
-        <!-- EDIT -->
+        <!-- ACTIONS -->
         <td>
             <ul class="grp-actions">
-                <li class="grp-change-link"><a href="{% url 'filebrowser:fb_detail' %}{% query_string "" "p,dir" %}&dir={{ fileobject.dirname|urlencode }}&amp;filename={{ fileobject.filename|urlencode }}"><strong>{% trans "Change" %}</strong></a></li>
-            </ul>
+                <li class="grp-change-link">
+                    <!-- EDIT -->
+                    <a href="{% url 'filebrowser:fb_detail' %}{% query_string "" "p,dir" %}&dir={{ fileobject.dirname|urlencode }}&amp;filename={{ fileobject.filename|urlencode }}"><strong>{% trans "Change" %}</strong></a>
+                    <!-- DELETE -->
+                    <a href="{% url 'filebrowser:fb_delete_confirm' %}{% query_string "" "p,dir" %}&dir={{ fileobject.dirname|urlencode }}&amp;filename={{ fileobject.filename|urlencode }}" class="grp-button grp-delete-link">{% trans "Delete" %}</a>
+                </li>
+            </ul>        
         </td>
 
     </tr>
