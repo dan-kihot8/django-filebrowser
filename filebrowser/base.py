@@ -16,7 +16,7 @@ from filebrowser.settings import (ADMIN_VERSIONS, DEFAULT_PERMISSIONS,
                                   EXTENSIONS, IMAGE_MAXBLOCK, SELECT_FORMATS,
                                   STRICT_PIL, VERSION_QUALITY, VERSIONS,
                                   VERSIONS_BASEDIR, USED_MEDIA_URL)
-from filebrowser.utils import get_modified_time, path_strip, process_image
+from filebrowser.utils import get_modified_time, path_strip, process_image, get_size
 
 from .namers import get_namer
 
@@ -284,6 +284,8 @@ class FileObject():
     @cached_property
     def filesize(self):
         "Filesize in bytes"
+        if self.is_folder:
+            return get_size(os.path.join(self.site.storage.location, self.path))
         return self.site.storage.size(self.path) if self.exists else None
 
     @cached_property

@@ -67,6 +67,9 @@ FORCE_PLACEHOLDER = getattr(settings, "FILEBROWSER_FORCE_PLACEHOLDER", False)
 # If set to True then using normpath when build url to media
 USED_MEDIA_URL = getattr(settings, "FILEBROWSER_USED_MEDIA_URL", False)
 
+# If set to True then will amount directoyies size
+COUNT_DIR_SIZE = getattr(settings, "FILEBROWSER_COUNT_DIR_SIZE", False)
+
 # If set to True, the FileBrowser will not try to import a mis-installed PIL.
 STRICT_PIL = getattr(settings, 'FILEBROWSER_STRICT_PIL', False)
 # PIL's Error "Suspension not allowed here" work around:
