@@ -15,7 +15,7 @@ from django.utils.functional import cached_property
 from filebrowser.settings import (ADMIN_VERSIONS, DEFAULT_PERMISSIONS,
                                   EXTENSIONS, IMAGE_MAXBLOCK, SELECT_FORMATS,
                                   STRICT_PIL, VERSION_QUALITY, VERSIONS,
-                                  VERSIONS_BASEDIR)
+                                  VERSIONS_BASEDIR, USED_MEDIA_URL)
 from filebrowser.utils import get_modified_time, path_strip, process_image
 
 from .namers import get_namer
@@ -330,7 +330,10 @@ class FileObject():
     @property
     def url(self):
         "URL for the file/folder as defined with site.storage"
-        return self.site.storage.url(self.path)
+        if USED_MEDIA_URL:
+            return self.site.storage.url(os.path.normpath(self.path))
+        else:
+            return self.site.storage.url(self.path)
 
     # IMAGE ATTRIBUTES/PROPERTIES
     # dimensions
